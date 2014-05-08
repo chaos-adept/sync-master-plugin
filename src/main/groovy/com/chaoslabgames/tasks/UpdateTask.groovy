@@ -32,8 +32,6 @@ class UpdateTask extends DefaultTask {
         UsernamePasswordCredentialsProvider user =
                 new UsernamePasswordCredentialsProvider(syncMasterExt.username, syncMasterExt.password);
 
-        logger.lifecycle("repos ${syncMasterExt.repos}");
-
         syncMasterExt.repos.each { repoItemInfo ->
             def repoDir = new File(repoItemInfo.name, syncMasterExt.slavesReposDir);
             logger.lifecycle("repoDir $repoDir exists ${repoDir.exists()}");

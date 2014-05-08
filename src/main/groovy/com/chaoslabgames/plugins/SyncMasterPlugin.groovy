@@ -20,8 +20,8 @@ class SyncMasterPlugin implements Plugin<Project> {
 
             def SyncMasterExtension extension = extensions.create("syncMaster", SyncMasterExtension);
 
-            extension.username = System.properties['GIT_USER_NAME'];
-            extension.password = System.properties['GIT_USER_PASSWORD'];
+            extension.username = System.properties['GIT_USERNAME'];
+            extension.password = System.properties['GIT_PASSWORD'];
 
             tasks.create("updateSlaves", UpdateTask)
         }
