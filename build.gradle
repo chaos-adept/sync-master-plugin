@@ -1,0 +1,50 @@
+apply plugin: 'groovy'
+apply plugin: 'idea'
+apply plugin: 'maven-publish'
+
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile gradleApi()
+    compile group: 'commons-lang', name: 'commons-lang', version: '2.6'
+    compile group: 'commons-io', name: 'commons-io', version: '2.4'
+    compile group: 'org.codehaus.groovy', name: 'groovy-all', version: '1.8.6'
+	compile 'org.eclipse.jgit:org.eclipse.jgit:3.3.2.201404171909-r' 
+    testCompile group: 'org.spockframework', name: 'spock-core', version: '0.7-groovy-1.8'
+}
+
+task groovydocJar(type: Jar, dependsOn: groovydoc) {
+    classifier = 'javadoc'
+    from 'build/docs/groovydoc'
+}
+
+task sourcesJar(type: Jar) {
+    from sourceSets.main.allSource
+    classifier = 'sources'
+}
+
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            groupId 'com.chaoslabgames'
+            artifactId 'sync-master-plugin'
+            version '0.1'
+
+            from components.java
+        }
+    }
+    repositories {
+        maven {
+            url "https://api.bintray.com/maven/codearte/public/fairyland"
+            credentials {
+                username = bintrayUser
+                password = bintrayKey
+            }
+        }
+    }
+}
+
