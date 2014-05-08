@@ -25,26 +25,3 @@ task sourcesJar(type: Jar) {
     from sourceSets.main.allSource
     classifier = 'sources'
 }
-
-
-publishing {
-    publications {
-        maven(MavenPublication) {
-            groupId 'com.chaoslabgames'
-            artifactId 'sync-master-plugin'
-            version '0.1'
-
-            from components.java
-        }
-    }
-    repositories {
-        maven {
-            url "https://api.bintray.com/maven/codearte/public/fairyland"
-            credentials {
-                username = bintrayUser
-                password = bintrayKey
-            }
-        }
-    }
-}
-

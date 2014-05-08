@@ -7,6 +7,9 @@ class SyncMasterExtension {
     def File slavesReposDir;
     def List<RepoItem> repos = new ArrayList<>();
 
+    def username;
+    def password;
+
     def registerRepo(Closure ...configurators) {
         configurators.each { config ->
             RepoItem item = new RepoItem();

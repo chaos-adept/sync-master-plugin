@@ -22,8 +22,15 @@ class UpdateTask extends DefaultTask {
     def action() {
         syncMasterExt = project.extensions.syncMaster;
 
+        if (!syncMasterExt.username) {
+            throw new RuntimeException('define git user name - syncMaster.username');
+        }
+        if (!syncMasterExt.password) {
+            throw new RuntimeException('define git user name - syncMaster.password');
+        }
+
         UsernamePasswordCredentialsProvider user =
-                new UsernamePasswordCredentialsProvider('chaos-encoder', 'analog10encoder');
+                new UsernamePasswordCredentialsProvider(syncMasterExt.username, syncMasterExt.password);
 
         logger.lifecycle("repos ${syncMasterExt.repos}");
 
