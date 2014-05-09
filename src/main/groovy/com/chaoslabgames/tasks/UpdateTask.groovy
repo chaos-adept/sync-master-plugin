@@ -21,16 +21,10 @@ class UpdateTask extends DefaultTask {
     @TaskAction
     def action() {
         syncMasterExt = project.extensions.syncMaster;
-
-        if (!syncMasterExt.username) {
-            throw new RuntimeException('define git user name - syncMaster.username');
+        UsernamePasswordCredentialsProvider user = null;
+        if (syncMasterExt.username && syncMasterExt.password) {
+            user = new UsernamePasswordCredentialsProvider(syncMasterExt.username, syncMasterExt.password);
         }
-        if (!syncMasterExt.password) {
-            throw new RuntimeException('define git user name - syncMaster.password');
-        }
-
-        UsernamePasswordCredentialsProvider user =
-                new UsernamePasswordCredentialsProvider(syncMasterExt.username, syncMasterExt.password);
 
         syncMasterExt.repos.each { repoItemInfo ->
             def repoDir = new File(repoItemInfo.name, syncMasterExt.slavesReposDir);
